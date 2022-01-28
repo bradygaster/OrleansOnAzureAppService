@@ -26,7 +26,7 @@ This repository contains a simple solution with an Orleans Silo and an Orleans C
 
 ## Topology diagram
 
-The resultant application is an Orleans clusted comprised of a trio of App Services - the `silo`, and the `client` Razor Pages front-end, and the community-contributed Orleans Dashboard, so you can see a snapshot of all the grains, silos, and messages in the cluster.
+The resultant application is an Orleans clusted comprised of a trio of App Services - the `silo`, the `client` Razor Pages front-end, and the community-contributed Orleans Dashboard, so you can see a snapshot of all the grains, silos, and messages in the cluster.
 
 ![Topology diagram](static/topology.png)
 
