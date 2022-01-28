@@ -1,0 +1,42 @@
+﻿@page
+@inject Orleans.IClusterClient _orleansClient;
+@using OrleansOnAppService.Abstractions
+@model IndexModel
+@{
+    ViewData["Title"] = "Current Visitors";
+}
+
+<p>This is a list of all of the active visitors on the site.</p>
+
+@if (Model.Visitors == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <td>SessionKey</td>
+                <td>RemoteAddress</td>
+                <td>Arrived</td>
+                <td>LastSeen</td>
+                <td>CurrentPage</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var visitor in Model.Visitors)
+            {
+                <tr>
+                    <td>@visitor.SessionKey</td>
+                    <td>@visitor.RemoteAddress</td>
+                    <td>@visitor.Arrived</td>
+                    <td>@visitor.LastSeen</td>
+                    <td>@visitor.CurrentPage</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@(await Html.PartialAsync("VisitorTracker"))

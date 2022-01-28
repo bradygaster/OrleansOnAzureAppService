@@ -1,0 +1,31 @@
+﻿@using OrleansOnAppService.Abstractions
+@inject IHttpContextAccessor _httpContextAccessor;
+@inject Orleans.IClusterClient _orleansClient;
+
+@{
+    var httpContext = _httpContextAccessor.HttpContext;
+
+    Visitor Visitor = new Visitor();
+    Visitor.CurrentPage = httpContext.Request.Path;
+    Visitor.LastSeen = DateTime.Now;
+    Visitor.RemoteAddress = httpContext.Connection.RemoteIpAddress.ToString();
+
+    string SessionKeyName = "_Key";
+    var key = httpContext.Session.GetString(SessionKeyName);
+
+    if (string.IsNullOrEmpty(key))
+    {
+        key = Guid.NewGuid().ToString();
+        httpContext.Session.SetString(SessionKeyName, key);
+        Visitor.SessionKey = key;
+        Visitor.Arrived = DateTime.Now;
+    }
+    else
+    {
+        Visitor.SessionKey = key;
+    }
+
+    await _orleansClient.GetGrain<IVisitorGrain>(Visitor.SessionKey).SetVisitor(Visitor);
+}
+
+<p>You are visitor @Visitor.SessionKey</p>
