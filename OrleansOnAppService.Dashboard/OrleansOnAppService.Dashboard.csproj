@@ -8,8 +8,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Orleans.Azure.Infrastructure\Orleans.Azure.Infrastructure.csproj" />
-		<ProjectReference Include="..\OrleansOnAppService.Abstractions\OrleansOnAppService.Abstractions.csproj" />
-		<ProjectReference Include="..\OrleansOnAppService.Grains\OrleansOnAppService.Grains.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
